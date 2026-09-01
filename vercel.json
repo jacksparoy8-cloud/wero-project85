@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 2, "env": { "REBUILD": "true" },
   "builds": [
     {
       "src": "api/index.js",
