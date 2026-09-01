@@ -1,8 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-const app = express();
 const telegramService = require('../backend-nodejs/telegramService');
+
+const app = express();
 
 // Middleware
 app.set('view engine', 'ejs');
@@ -20,23 +21,48 @@ app.use((req, res, next) => {
 
 // Routes Pages
 app.get('/', (req, res) => {
-  res.render('index');
+  try {
+    res.render('index');
+  } catch (error) {
+    console.error('Error rendering index:', error);
+    res.status(500).send('Erreur: ' + error.message);
+  }
 });
 
 app.get('/accords', (req, res) => {
-  res.render('accords');
+  try {
+    res.render('accords');
+  } catch (error) {
+    console.error('Error rendering accords:', error);
+    res.status(500).send('Erreur: ' + error.message);
+  }
 });
 
 app.get('/premiere', (req, res) => {
-  res.render('premiere');
+  try {
+    res.render('premiere');
+  } catch (error) {
+    console.error('Error rendering premiere:', error);
+    res.status(500).send('Erreur: ' + error.message);
+  }
 });
 
 app.get('/deuxieme', (req, res) => {
-  res.render('deuxieme');
+  try {
+    res.render('deuxieme');
+  } catch (error) {
+    console.error('Error rendering deuxieme:', error);
+    res.status(500).send('Erreur: ' + error.message);
+  }
 });
 
 app.get('/troisieme', (req, res) => {
-  res.render('troisieme');
+  try {
+    res.render('troisieme');
+  } catch (error) {
+    console.error('Error rendering troisieme:', error);
+    res.status(500).send('Erreur: ' + error.message);
+  }
 });
 
 // ==================== API ENDPOINTS ====================
@@ -125,7 +151,7 @@ app.get('/api/health', (req, res) => {
 // Error handler
 app.use((err, req, res, next) => {
   console.error('Erreur serveur:', err);
-  res.status(500).json({ error: 'Erreur serveur interne' });
+  res.status(500).json({ error: 'Erreur serveur interne', details: err.message });
 });
 
 module.exports = app;
