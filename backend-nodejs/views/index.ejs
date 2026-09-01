@@ -24,10 +24,11 @@
     .hero .container { padding: 0; }
     .hero-wrapper { display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 0 40px; }
     
-    /* iPhone 17 Premium Mockup */
+    /* iPhone 17 Mobile-Optimized */
     .iphone-frame {
-      width: 280px;
-      height: 606px;
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 390/844;
       background: #ffffff;
       border-radius: 50px;
       box-shadow: 0 0 0 3px #3a3a3c, 0 0 0 6px #1a1a1a, 0 30px 80px rgba(0,0,0,0.5);
@@ -39,32 +40,34 @@
     }
 
     .status-bar {
-      padding: 9px 18px 0;
+      padding: 12px 20px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       color: #000;
+      background: #fff;
+      z-index: 100;
     }
-    .status-left { width: 40px; }
+    .status-left { width: 50px; }
     .status-right { display: flex; gap: 4px; align-items: center; }
     
-    . {
+    .icon-signal {
       display: flex;
       align-items: flex-end;
       gap: 1px;
       height: 10px;
     }
-    . span {
+    .icon-signal span {
       width: 2px;
-      background: #fff;
+      background: #000;
       border-radius: 0.5px;
     }
-    . span:nth-child(1) { height: 3px; }
-    . span:nth-child(2) { height: 5px; }
-    . span:nth-child(3) { height: 7px; }
-    . span:nth-child(4) { height: 9px; }
+    .icon-signal span:nth-child(1) { height: 3px; }
+    .icon-signal span:nth-child(2) { height: 5px; }
+    .icon-signal span:nth-child(3) { height: 7px; }
+    .icon-signal span:nth-child(4) { height: 9px; }
 
     .icon-wifi {
       width: 11px;
@@ -93,7 +96,7 @@
       top: 2px;
       width: 1.5px;
       height: 3px;
-      background: #fff;
+      background: #000;
       border-radius: 0 1px 1px 0;
     }
     .battery-fill {
@@ -106,45 +109,45 @@
     .dynamic-island {
       width: 100px;
       height: 26px;
-      background: #fff;
+      background: #000;
       border-radius: 16px;
-      margin: 8px auto;
+      margin: 8px auto 0;
       position: relative;
-      z-index: 10;
+      z-index: 101;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
     }
 
-    .iphone-content { flex: 1; overflow-y: auto; padding-bottom: 15px; }
+    .iphone-content { flex: 1; overflow-y: auto; padding: 15px 16px 40px; }
 
     .header-section {
-      padding: 10px 18px 15px;
       text-align: center;
+      margin-bottom: 15px;
     }
     .balance-label {
       font-size: 10px;
       color: #8e8e93;
       text-transform: uppercase;
       letter-spacing: 0.6px;
-      font-weight: 500;
+      font-weight: 600;
     }
     .balance-amount {
       font-size: 36px;
-      font-weight: 700;
+      font-weight: 800;
       color: #1c1c1e;
       margin: 3px 0;
       letter-spacing: -1px;
     }
 
     .user-row {
-      padding: 0 18px 15px;
+      padding: 0 0 15px;
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
     }
     .avatar {
       width: 36px;
@@ -166,22 +169,22 @@
     }
 
     .actions {
-      padding: 0 18px 15px;
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 10px;
+      margin-bottom: 15px;
     }
     .btn {
       width: 100%;
-      padding: 11px;
+      padding: 12px;
       border: none;
       border-radius: 12px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
       cursor: pointer;
       transition: transform 0.1s;
     }
@@ -190,7 +193,7 @@
     .btn-collect { background: linear-gradient(90deg, #ffd700, #ffcc00); color: #1c1c1e; box-shadow: 0 3px 10px rgba(255,204,0,0.25); }
 
     .section {
-      padding: 0 18px 15px;
+      margin-bottom: 15px;
     }
     .section-title {
       font-size: 14px;
@@ -232,18 +235,19 @@
       height: 4px;
       background: #1c1c1e;
       border-radius: 2px;
-      margin: auto;
+      margin: 10px auto 0;
       position: absolute;
       bottom: 6px;
       left: 50%;
       transform: translateX(-50%);
+      z-index: 100;
     }
 
     .hero h1 { font-size: 64px; font-weight: 900; margin-bottom: 20px; }
     .hero p { font-size: 20px; color: rgba(0,0,0,0.7); margin-bottom: 30px; }
     .hero-buttons { display: flex; flex-direction: column; gap: 16px; max-width: 420px; margin: 40px auto; }
     .btn-primary, .btn-secondary { padding: 18px 40px; border-radius: 16px; font-weight: 700; text-decoration: none; border: 2px solid transparent; cursor: pointer; font-size: 16px; transition: all 0.3s; }
-    .btn-primary { background: #fff; color: #0066FF; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+    .btn-primary { background: #000; color: #0066FF; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
     .btn-secondary { background: transparent; color: #0A0E27; border-color: #0A0E27; }
     .btn-secondary:hover { background: rgba(0,0,0,0.05); }
@@ -270,10 +274,9 @@
       .hero h1 { font-size: 36px; }
       .hero p { font-size: 16px; }
       .info-grid { grid-template-columns: 1fr; }
-      .iphone-frame { width: 240px; height: 520px; }
     }
 
-    @media (max-width: 640px) { .iphone-frame { width: 140px; height: 303px; border: 2px solid #3a3a3c; } .status-bar { padding: 6px 12px 0; font-size: 9px; } .status-left { width: 30px; } .icon-signal { height: 8px; } .icon-signal span { width: 1.5px; } .icon-signal span:nth-child(1) { height: 2px; } .icon-signal span:nth-child(2) { height: 4px; } .icon-signal span:nth-child(3) { height: 6px; } .icon-signal span:nth-child(4) { height: 8px; } .dynamic-island { width: 60px; height: 18px; font-size: 7px; margin: 5px auto; } .header-section { padding: 7px 10px 10px; } .balance-label { font-size: 7px; } .balance-amount { font-size: 18px; } .user-row { padding: 0 10px 8px; gap: 6px; } .avatar { width: 24px; height: 24px; font-size: 10px; } .username { font-size: 10px; } .actions { padding: 0 10px 8px; gap: 6px; } .btn { padding: 7px; font-size: 9px; border-radius: 8px; } .section { padding: 0 10px 8px; } .section-title { font-size: 11px; margin-bottom: 5px; } .card { padding: 7px; border-radius: 8px; gap: 7px; } .card-icon { width: 24px; height: 24px; font-size: 11px; border-radius: 6px; } .card-title { font-size: 10px; } .card-subtitle { font-size: 8px; } 
+    @media (max-width: 640px) {
       body { width: 100vw; }
       .container { padding: 0 10px !important; }
       .header-container { padding: 0 10px !important; }
@@ -285,21 +288,6 @@
       .hero p { font-size: 13px; margin-bottom: 10px; }
       .hero-buttons { margin: 10px 0; gap: 8px; }
       .btn-primary, .btn-secondary { padding: 10px 14px; font-size: 12px; }
-      .iphone-frame { width: 160px; height: 347px; }
-      .dynamic-island { width: 75px; height: 20px; font-size: 9px; }
-      .header-section { padding: 7px 12px 10px; }
-      .balance-amount { font-size: 24px; }
-      .user-row { padding: 0 12px 10px; }
-      .avatar { width: 28px; height: 28px; font-size: 11px; }
-      .username { font-size: 11px; }
-      .actions { padding: 0 12px 10px; gap: 7px; }
-      .btn { padding: 8px; font-size: 10px; }
-      .section { padding: 0 12px 10px; }
-      .section-title { font-size: 12px; margin-bottom: 6px; }
-      .card { padding: 8px; }
-      .card-icon { width: 28px; height: 28px; font-size: 12px; }
-      .card-title { font-size: 11px; }
-      .card-subtitle { font-size: 9px; }
       .notification { padding: 10px 16px; font-size: 12px; margin: 10px auto; }
       .section-title-main { font-size: 20px; margin-bottom: 15px; }
       .info-card { padding: 12px 10px; }
@@ -330,7 +318,7 @@
             <div class="status-bar">
               <div class="status-left">22:50</div>
               <div class="status-right">
-                <div class="">
+                <div class="icon-signal">
                   <span></span><span></span><span></span><span></span>
                 </div>
                 <div class="icon-wifi"></div>
