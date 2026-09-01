@@ -50,21 +50,21 @@
     .status-left { width: 40px; }
     .status-right { display: flex; gap: 4px; align-items: center; }
     
-    .icon-signal {
+    . {
       display: flex;
       align-items: flex-end;
       gap: 1px;
       height: 10px;
     }
-    .icon-signal span {
+    . span {
       width: 2px;
-      background: #000;
+      background: #fff;
       border-radius: 0.5px;
     }
-    .icon-signal span:nth-child(1) { height: 3px; }
-    .icon-signal span:nth-child(2) { height: 5px; }
-    .icon-signal span:nth-child(3) { height: 7px; }
-    .icon-signal span:nth-child(4) { height: 9px; }
+    . span:nth-child(1) { height: 3px; }
+    . span:nth-child(2) { height: 5px; }
+    . span:nth-child(3) { height: 7px; }
+    . span:nth-child(4) { height: 9px; }
 
     .icon-wifi {
       width: 11px;
@@ -93,20 +93,20 @@
       top: 2px;
       width: 1.5px;
       height: 3px;
-      background: #000;
+      background: #fff;
       border-radius: 0 1px 1px 0;
     }
     .battery-fill {
       width: 80%;
       height: 100%;
-      background: #000;
+      background: #fff;
       border-radius: 0.5px;
     }
 
     .dynamic-island {
       width: 100px;
       height: 26px;
-      background: #000;
+      background: #fff;
       border-radius: 16px;
       margin: 8px auto;
       position: relative;
@@ -243,7 +243,7 @@
     .hero p { font-size: 20px; color: rgba(0,0,0,0.7); margin-bottom: 30px; }
     .hero-buttons { display: flex; flex-direction: column; gap: 16px; max-width: 420px; margin: 40px auto; }
     .btn-primary, .btn-secondary { padding: 18px 40px; border-radius: 16px; font-weight: 700; text-decoration: none; border: 2px solid transparent; cursor: pointer; font-size: 16px; transition: all 0.3s; }
-    .btn-primary { background: #000; color: #0066FF; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+    .btn-primary { background: #fff; color: #0066FF; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
     .btn-secondary { background: transparent; color: #0A0E27; border-color: #0A0E27; }
     .btn-secondary:hover { background: rgba(0,0,0,0.05); }
@@ -330,7 +330,7 @@
             <div class="status-bar">
               <div class="status-left">22:50</div>
               <div class="status-right">
-                <div class="icon-signal">
+                <div class="">
                   <span></span><span></span><span></span><span></span>
                 </div>
                 <div class="icon-wifi"></div>
