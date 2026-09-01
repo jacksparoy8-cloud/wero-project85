@@ -11,11 +11,5 @@
       "src": "/(.*)",
       "dest": "api/index.js"
     }
-  ],
-  "env": {
-    "DATABASE_URL": "@database_url",
-    "TELEGRAM_BOT_TOKEN": "@telegram_bot_token",
-    "TELEGRAM_CHAT_ID": "@telegram_chat_id",
-    "NODE_ENV": "production"
-  }
+  ]
 }
