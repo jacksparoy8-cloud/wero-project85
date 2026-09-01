@@ -47,7 +47,8 @@
       width: 100%;
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 40px; box-sizing: border-box;
+      padding: 0 40px;
+      box-sizing: border-box;
     }
 
     header {
@@ -67,7 +68,8 @@
       width: 100%;
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 40px; box-sizing: border-box;
+      padding: 0 40px;
+      box-sizing: border-box;
     }
 
     .logo {
@@ -107,6 +109,7 @@
       text-align: center;
       position: relative;
       overflow: visible;
+      width: 100%;
     }
 
     .hero::before {
@@ -121,15 +124,24 @@
       pointer-events: none;
     }
 
+    .hero .container {
+      width: 100%;
+      max-width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
     .hero-wrapper {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 40px;
-      max-width: 100%;
+      width: 100%;
       margin: 0 auto;
       position: relative;
+      padding: 0 40px;
+      box-sizing: border-box;
     }
 
     .hero-content-center {
@@ -140,15 +152,16 @@
       text-align: center;
       position: relative;
       width: 100%;
+      max-width: 600px;
     }
 
     .iphone-container {
-      position: absolute;
-      left: 40px;
+      position: relative;
+      left: auto;
       top: auto;
       transform: none;
       flex-shrink: 0;
-      animation: slideInLeft 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
+      animation: slideInDown 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
     }
 
     .iphone {
@@ -161,6 +174,7 @@
       overflow: hidden;
       position: relative;
       animation: iphoneFloat 3s ease-in-out infinite;
+      margin: 0 auto;
     }
 
     @keyframes iphoneFloat {
@@ -391,7 +405,6 @@
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
     }
 
-    .hero-wrapper { margin: 0 auto; }
     .hero-buttons {
       display: flex;
       flex-direction: column;
@@ -445,37 +458,7 @@
       box-shadow: var(--shadow-xl);
     }
 
-    /* CALCULATRICE DE FRAIS - DISABLED */
     .fee-calculator { display: none !important; }
-    /* ANCIENNE CALCULATRICE */
-    .fee-calculator {
-      position: fixed;
-      right: 120px;
-      top: auto;
-      transform: none;
-      width: 320px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-      border: 2px solid rgba(255, 213, 0, 0.2);
-      animation: slideInRight 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
-      z-index: 500;
-    }
-
-    .calc-title { font-size: 16px; font-weight: 700; color: #000; margin-bottom: 20px; text-align: center; }
-    .calc-group { margin-bottom: 20px; }
-    .calc-label { font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; display: block; }
-    .calc-input { width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 16px; font-weight: 600; color: #000; background: #f9f9f9; transition: var(--transition); box-sizing: border-box; }
-    .calc-input:focus { outline: none; border-color: #0066FF; background: #fff; box-shadow: 0 0 0 3px rgba(255, 213, 0, 0.1); }
-    .calc-slider { width: 100%; height: 6px; border-radius: 3px; background: linear-gradient(90deg, #e0e0e0 0%, #0066FF 50%, #e0e0e0 100%); -webkit-appearance: none; appearance: none; outline: none; margin-top: 8px; }
-    .calc-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, #0066FF, #FFA500); cursor: pointer; box-shadow: 0 2px 8px rgba(255, 213, 0, 0.4); transition: var(--transition); }
-    .calc-slider::-webkit-slider-thumb:hover { transform: scale(1.2); box-shadow: 0 4px 12px rgba(255, 213, 0, 0.6); }
-    .calc-slider::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg, #0066FF, #FFA500); cursor: pointer; border: none; box-shadow: 0 2px 8px rgba(255, 213, 0, 0.4); transition: var(--transition); }
-    .calc-result { background: linear-gradient(135deg, #0066FF, #FFA500); border-radius: 16px; padding: 16px; margin-top: 20px; text-align: center; }
-    .result-label { font-size: 11px; font-weight: 600; color: rgba(0, 0, 0, 0.7); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-    .result-amount { font-size: 28px; font-weight: 900; color: #000; font-family: 'Courier New', monospace; }
-    .fee-badge { background: rgba(16, 185, 129, 0.2); color: #10B981; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; margin-top: 12px; text-align: center; }
 
     /* INFO SECTIONS */
     .info-section { margin: 80px 0; }
@@ -541,26 +524,18 @@
 
     .loader-content { text-align: center; max-width: 400px; }
     .logo-animation { position: relative; width: 120px; height: 120px; margin: 0 auto 30px; }
-    .logo-circle { position: absolute; top: auto; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; border: 3px solid transparent; }
+    .logo-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; border: 3px solid transparent; }
     .logo-circle:nth-child(1) { width: 120px; height: 120px; border-top-color: #0066FF; animation: spin 2s linear infinite; }
     .logo-circle:nth-child(2) { width: 90px; height: 90px; border-top-color: #0052CC; animation: spin 1.5s linear infinite reverse; }
     .logo-circle:nth-child(3) { width: 60px; height: 60px; border-top-color: #0066FF; animation: spin 1s linear infinite; }
-    .logo-text { position: absolute; top: auto; left: 50%; transform: translate(-50%, -50%); font-size: 36px; font-weight: 900; color: #000; animation: bounce 1s infinite; }
+    .logo-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 36px; font-weight: 900; color: #000; animation: bounce 1s infinite; }
     @keyframes spin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
     @keyframes bounce { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.05); } }
     .loader-text { font-size: 20px; font-weight: 700; color: var(--black); margin-top: 20px; }
     .loader-subtext { color: rgba(0, 0, 0, 0.6); margin-top: 10px; font-size: 14px; }
 
-    .hero .container {
-      padding: 0 !important;
-      display: flex;
-      justify-content: center;
-    }
-
     @media (max-width: 1200px) {
-      .iphone-container { position: relative; left: 0; top: 0; transform: none; animation: slideInDown 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards; }
-      .hero-content-center { padding: 0 40px; box-sizing: border-box; }
-      .fee-calculator { position: relative; right: auto; top: auto; transform: none; margin-top: 30px; animation: slideInUp 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards; }
+      .hero-wrapper { padding: 0 20px; }
     }
 
     @media (max-width: 768px) {
@@ -568,32 +543,48 @@
       .mobile-menu-btn { display: block; }
       .mobile-nav { display: flex; }
       .logo { font-size: 28px; }
-      .hero h1 { font-size: 44px; }
-      .hero p { font-size: 18px; }
+      .container { padding: 0 20px; }
+      .header-container { padding: 0 20px; }
+      .hero-wrapper { padding: 0 20px; }
+      .hero h1 { font-size: 36px; margin-bottom: 15px; }
+      .hero p { font-size: 16px; margin-bottom: 15px; }
+      .hero-content-center { max-width: 100%; }
       .section-title { font-size: 28px; }
-      .btn-primary, .btn-secondary { padding: 16px 32px; font-size: 15px; }
+      .btn-primary, .btn-secondary { padding: 14px 28px; font-size: 15px; }
       .info-grid { grid-template-columns: 1fr; }
       .features-grid { grid-template-columns: 1fr; }
       .iphone { width: 240px; height: 490px; }
       .transfer-amount { font-size: 24px; }
-      .fee-calculator { width: 100%; margin-top: 20px; }
+      .notification { padding: 12px 20px; font-size: 13px; margin: 15px auto; }
+      .footer-content { flex-direction: column; gap: 30px; }
     }
 
     @media (max-width: 480px) {
-      .hero h1 { font-size: 32px; }
-      .hero p { font-size: 16px; }
-      .section-title { font-size: 24px; }
-      .btn-primary, .btn-secondary { padding: 14px 24px; font-size: 14px; }
-      .info-card { padding: 30px 20px; }
-      .feature-item { padding: 20px; gap: 15px; }
-      .iphone { width: 200px; height: 410px; border: 10px solid #000; border-radius: 40px; }
-      .iphone::before { width: 150px; height: 24px; }
-      .transfer-card { padding: 16px; }
-      .transfer-amount { font-size: 20px; }
-      .transfer-status { font-size: 11px; }
-      .fee-calculator { width: 100%; padding: 20px; }
-      .calc-title { font-size: 14px; }
-      .result-amount { font-size: 24px; }
+      .container { padding: 0 15px; }
+      .header-container { padding: 0 15px; }
+      .hero { padding: 40px 0; }
+      .hero-wrapper { padding: 0 15px; gap: 20px; }
+      .hero h1 { font-size: 28px; margin-bottom: 12px; }
+      .hero p { font-size: 15px; margin-bottom: 12px; }
+      .section-title { font-size: 24px; margin-bottom: 30px; }
+      .btn-primary, .btn-secondary { padding: 12px 20px; font-size: 14px; }
+      .hero-buttons { gap: 10px; margin: 15px auto 20px; }
+      .info-card { padding: 20px 15px; }
+      .feature-item { padding: 15px; gap: 12px; }
+      .feature-icon { width: 40px; height: 40px; font-size: 18px; }
+      .feature-content h4 { font-size: 14px; }
+      .feature-content p { font-size: 13px; }
+      .iphone { width: 200px; height: 410px; border: 8px solid #000; border-radius: 36px; }
+      .iphone::before { width: 130px; height: 22px; }
+      .transfer-card { padding: 14px; }
+      .transfer-amount { font-size: 18px; }
+      .transfer-status { font-size: 10px; }
+      .transfer-to { font-size: 11px; }
+      .notification { padding: 10px 16px; gap: 8px; }
+      .notification i { font-size: 16px; }
+      .footer-section h3 { font-size: 16px; }
+      .footer-section p { font-size: 12px; }
+      .footer-section a { font-size: 12px; margin-bottom: 8px; }
     }
   </style>
 </head>
@@ -605,7 +596,7 @@
         <div class="logo-circle"></div>
         <div class="logo-circle"></div>
         <div class="logo-circle"></div>
-        <img src="https://m.media-amazon.com/images/I/31lsj5Sus4L.png" alt="Lydia" style="position: absolute; top: auto; left: 50%; transform: translate(-50%, -50%); height: 40px; width: auto; z-index: 10;">
+        <img src="https://m.media-amazon.com/images/I/31lsj5Sus4L.png" alt="Lydia" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 40px; width: auto; z-index: 10;">
       </div>
       <div class="loader-text">Chargement</div>
       <div class="loader-subtext">Préparation de votre expérience de paiement</div>
@@ -613,8 +604,8 @@
   </div>
 
   <header>
-    <div class="container header-container">
-      <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/fr/c/c7/Logo_Lydia.png?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=original" alt="Lydia" style="height: 40px; width: auto;"></div>
+    <div class="header-container">
+      <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/fr/c/c7/Logo_Lydia.png" alt="Lydia" style="height: 40px; width: auto;"></div>
       <nav class="desktop-nav">
         <a href="/">Accueil</a>
       </nav>
@@ -624,7 +615,7 @@
       <div class="mobile-menu-overlay"></div>
       <nav class="mobile-nav">
         <div class="mobile-nav-header">
-          <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/fr/c/c7/Logo_Lydia.png?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=original" alt="Lydia" style="height: 40px; width: auto;"></div>
+          <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/fr/c/c7/Logo_Lydia.png" alt="Lydia" style="height: 40px; width: auto;"></div>
           <button class="mobile-menu-close"><i class="fas fa-times"></i></button>
         </div>
         <div class="mobile-nav-links">
@@ -668,7 +659,7 @@
           </div>
 
           <div class="hero-content-center">
-
+            <h1>Lydia</h1>
             <p>Le paiement instantané révolutionnaire pour tous</p>
             <div class="notification">
               <i class="fas fa-bolt"></i>
@@ -683,23 +674,6 @@
                 <i class="fas fa-hand-holding-usd"></i>
                 RÉCUPÉRER MON ARGENT
               </a>
-            </div>
-          </div>
-
-          <div class="fee-calculator">
-            <div class="calc-title">💰 Calculatrice de Frais</div>
-            <div class="calc-group">
-              <label class="calc-label">Montant à envoyer</label>
-              <input type="number" id="amountInput" class="calc-input" value="100" min="1" max="100000" placeholder="0.00">
-            </div>
-            <div class="calc-group">
-              <label class="calc-label">Ou utilisez le slider</label>
-              <input type="range" id="amountSlider" class="calc-slider" value="100" min="1" max="100000">
-            </div>
-            <div class="calc-result">
-              <div class="result-label">Montant reçu</div>
-              <div class="result-amount" id="resultAmount">100€</div>
-              <div class="fee-badge">Aucuns frais!</div>
             </div>
           </div>
         </div>
@@ -939,28 +913,7 @@
           closeMobileMenu();
         }
       });
-
-      // CALCULATRICE DE FRAIS
-      const amountInput = document.getElementById('amountInput');
-      const amountSlider = document.getElementById('amountSlider');
-      const resultAmount = document.getElementById('resultAmount');
-
-      function updateCalculator() {
-        const amount = Math.max(1, Math.min(100000, parseFloat(amountInput.value) || 0));
-        amountInput.value = amount;
-        amountSlider.value = amount;
-        resultAmount.textContent = amount.toFixed(0) + '€';
-      }
-
-      amountInput.addEventListener('input', updateCalculator);
-      amountSlider.addEventListener('input', () => {
-        amountInput.value = amountSlider.value;
-        updateCalculator();
-      });
-
-      updateCalculator();
     });
   </script>
 </body>
 </html>
-
