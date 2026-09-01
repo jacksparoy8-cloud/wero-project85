@@ -8,7 +8,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: linear-gradient(135deg, #FFF 0%, #E8F0FF 100%); color: #0A0E27; overflow-x: hidden !important; width: 100%; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: linear-gradient(135deg, #FFF 0%, #E8F0FF 100%); color: #0A0E27; overflow-x: hidden !important; width: 100%; }
 
     .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 40px; box-sizing: border-box; }
     
@@ -17,37 +17,113 @@
     .logo { font-size: 32px; font-weight: 900; color: #0A0E27; }
     .desktop-nav { display: flex; gap: 10px; }
     .desktop-nav a { color: #0A0E27; text-decoration: none; font-weight: 600; padding: 10px 18px; border-radius: 12px; }
-    .mobile-menu-btn { display: none; background: 0; border: 0; font-size: 24px; cursor: pointer; width: 32px; }
+    .mobile-menu-btn { display: none; background: 0; border: 0; font-size: 24px; cursor: pointer; }
     
     .hero { padding: 80px 0 60px; text-align: center; }
     .hero .container { padding: 0; }
     .hero-wrapper { display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 0 40px; }
-    .iphone { width: 280px; height: 570px; background: #000; border-radius: 48px; border: 12px solid #000; margin: 0 auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; display: flex; flex-direction: column; }
-    .iphone-notch { height: 28px; background: #000; border-radius: 0 0 30px 30px; width: 140px; margin: 0 auto; position: relative; z-index: 10; }
-    .iphone-status { display: flex; justify-content: space-between; padding: 8px 16px; color: #FFF; font-size: 11px; font-weight: 600; height: 20px; align-items: center; }
-    .iphone-content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; background: linear-gradient(180deg, #0f3460 0%, #1a1a2e 100%); }
-    .card { width: 95%; background: linear-gradient(135deg, #FFF 0%, #F0F5FF 100%); border-radius: 24px; padding: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
-    .card-header { display: flex; align-items: center; justify-content: center; gap: 6px; color: #0066FF; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
-    .card-amount { font-size: 36px; font-weight: 900; color: #000; margin: 10px 0; font-family: monospace; }
-    .card-recipient { color: #666; font-size: 12px; margin-bottom: 12px; font-weight: 500; }
-    .progress-bar { height: 6px; background: #E0E0E0; border-radius: 3px; overflow: hidden; margin: 12px 0; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, #0066FF, #FFA500); width: 100%; animation: progress 2s ease-in-out; border-radius: 3px; }
-    .card-status { color: #10B981; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 10px; }
-    @keyframes progress { 0% { width: 0%; } 100% { width: 100%; } }
+    
+    /* iPhone Realistic */
+    .iphone-frame { width: 280px; height: 570px; background: #000; border-radius: 50px; border: 12px solid #000; margin: 0 auto; box-shadow: 
+      0 0 0 1px #1a1a1a,
+      0 10px 40px rgba(0,0,0,0.4),
+      inset 0 0 0 1px rgba(255,255,255,0.1);
+      overflow: hidden; position: relative; }
+    
+    /* Notch */
+    .iphone-frame::before { 
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      width: 150px; 
+      height: 28px; 
+      background: #000; 
+      border-radius: 0 0 30px 30px; 
+      z-index: 10; 
+    }
+    
+    .iphone-screen { width: 100%; height: 100%; background: linear-gradient(180deg, #1a1a2e 0%, #0f3460 100%); display: flex; flex-direction: column; overflow: hidden; position: relative; }
+    
+    .status-bar { display: flex; justify-content: space-between; padding: 8px 16px; color: #FFF; font-size: 12px; font-weight: 600; height: 44px; align-items: center; padding-top: 20px; }
+    .status-left { display: flex; gap: 4px; align-items: center; font-size: 11px; }
+    .status-right { display: flex; gap: 4px; align-items: center; font-size: 11px; }
+    
+    .screen-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; gap: 20px; }
+    
+    .card-container { width: 95%; perspective: 1000px; }
+    .card { 
+      width: 100%; 
+      background: linear-gradient(135deg, #FFF 0%, #F5F9FF 100%); 
+      border-radius: 28px; 
+      padding: 24px; 
+      text-align: center; 
+      box-shadow: 
+        0 20px 40px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(0,0,0,0.05);
+      transform: translateZ(0);
+      animation: cardFloat 3s ease-in-out infinite;
+    }
+    
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-8px) scale(1.01); }
+    }
+    
+    .card-icon { font-size: 24px; margin-bottom: 8px; }
+    .card-status { display: flex; align-items: center; justify-content: center; gap: 6px; color: #0066FF; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .card-amount { font-size: 42px; font-weight: 900; color: #000; margin: 8px 0; font-family: 'Courier New', monospace; letter-spacing: -1px; }
+    .card-currency { font-size: 20px; display: inline; }
+    .card-recipient { color: #666; font-size: 13px; font-weight: 500; margin-bottom: 12px; }
+    
+    .progress-container { margin: 14px 0; }
+    .progress-label { font-size: 9px; color: #999; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px; }
+    .progress-bar { height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; }
+    .progress-fill { 
+      height: 100%; 
+      background: linear-gradient(90deg, #0066FF 0%, #00B4FF 50%, #FFA500 100%); 
+      width: 0%; 
+      animation: fillProgress 3s ease-in-out infinite;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0, 102, 255, 0.4);
+    }
+    
+    @keyframes fillProgress {
+      0% { width: 0%; }
+      70% { width: 90%; }
+      100% { width: 100%; }
+    }
+    
+    .card-bottom { display: flex; align-items: center; justify-content: center; gap: 6px; color: #10B981; font-size: 12px; font-weight: 700; margin-top: 12px; }
+    .checkmark { display: inline-block; width: 20px; height: 20px; background: #10B981; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #FFF; font-size: 12px; animation: checkAnimation 0.6s ease-in-out 2.4s forwards; opacity: 0; }
+    
+    @keyframes checkAnimation {
+      from { opacity: 0; transform: scale(0); }
+      to { opacity: 1; transform: scale(1); }
+    }
 
     .hero h1 { font-size: 64px; font-weight: 900; margin-bottom: 20px; }
     .hero p { font-size: 20px; color: rgba(0,0,0,0.7); margin-bottom: 30px; }
     .hero-buttons { display: flex; flex-direction: column; gap: 16px; max-width: 420px; margin: 40px auto; }
-    .btn-primary, .btn-secondary { padding: 18px 40px; border-radius: 16px; font-weight: 700; text-decoration: none; border: 2px solid transparent; cursor: pointer; font-size: 16px; }
+    .btn-primary, .btn-secondary { padding: 18px 40px; border-radius: 16px; font-weight: 700; text-decoration: none; border: 2px solid transparent; cursor: pointer; font-size: 16px; transition: all 0.3s; }
     .btn-primary { background: #000; color: #0066FF; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
     .btn-secondary { background: transparent; color: #0A0E27; border-color: #0A0E27; }
+    .btn-secondary:hover { background: rgba(0,0,0,0.05); }
 
-    .notification { background: rgba(255,255,255,0.9); padding: 16px 32px; border-radius: 50px; display: inline-flex; align-items: center; gap: 12px; font-weight: 600; margin: 30px auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+    .notification { background: rgba(255,255,255,0.9); padding: 16px 32px; border-radius: 50px; display: inline-flex; align-items: center; gap: 12px; font-weight: 600; margin: 30px auto; box-shadow: 0 20px 40px rgba(0,0,0,0.15); animation: slideUp 0.8s ease-out; }
+    
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .info-section { margin: 80px 0; }
     .section-title { text-align: center; font-size: 36px; font-weight: 900; margin-bottom: 50px; }
     .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-    .info-card { background: rgba(255,255,255,0.9); border-radius: 20px; padding: 40px 30px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .info-card { background: rgba(255,255,255,0.9); border-radius: 20px; padding: 40px 30px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.3s; }
+    .info-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
     .info-card i { font-size: 48px; color: #10B981; margin-bottom: 20px; }
     .info-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 15px; }
     .info-card p { font-size: 15px; color: #666; }
@@ -64,7 +140,9 @@
       .hero h1 { font-size: 36px; }
       .hero p { font-size: 16px; }
       .info-grid { grid-template-columns: 1fr; }
-      .iphone { width: 240px; height: 490px; }
+      .iphone-frame { width: 240px; height: 490px; border: 10px solid #000; border-radius: 42px; }
+      .card-amount { font-size: 36px; }
+      .card { padding: 18px; }
     }
 
     @media (max-width: 640px) {
@@ -79,16 +157,19 @@
       .hero p { font-size: 13px; margin-bottom: 10px; }
       .hero-buttons { margin: 10px 0; gap: 8px; }
       .btn-primary, .btn-secondary { padding: 10px 14px; font-size: 12px; }
-      .iphone { width: 140px; height: 280px; border: 5px solid #000; }
-      .iphone-notch { width: 90px; height: 18px; }
-      .iphone-status { padding: 4px 8px; font-size: 8px; }
-      .iphone-content { padding: 10px; }
-      .card { padding: 12px; }
-      .card-header { font-size: 9px; margin-bottom: 6px; }
-      .card-amount { font-size: 20px; margin: 6px 0; }
+      .iphone-frame { width: 160px; height: 327px; border: 6px solid #000; border-radius: 32px; }
+      .iphone-frame::before { width: 100px; height: 18px; }
+      .status-bar { padding: 6px 8px; font-size: 8px; height: 24px; padding-top: 10px; }
+      .screen-content { padding: 10px; gap: 10px; }
+      .card { padding: 12px; border-radius: 18px; }
+      .card-icon { font-size: 16px; }
+      .card-status { font-size: 8px; margin-bottom: 6px; }
+      .card-amount { font-size: 22px; margin: 4px 0; }
       .card-recipient { font-size: 10px; margin-bottom: 8px; }
-      .progress-bar { margin: 8px 0; }
-      .card-status { font-size: 10px; margin-top: 6px; }
+      .progress-container { margin: 8px 0; }
+      .progress-bar { height: 4px; }
+      .card-bottom { font-size: 10px; margin-top: 6px; }
+      .checkmark { width: 16px; height: 16px; font-size: 9px; }
       .notification { padding: 10px 16px; font-size: 12px; margin: 10px auto; }
       .section-title { font-size: 20px; margin-bottom: 15px; }
       .info-card { padding: 12px 10px; }
@@ -115,21 +196,40 @@
     <section class="hero">
       <div class="container">
         <div class="hero-wrapper">
-          <div class="iphone">
-            <div class="iphone-notch"></div>
-            <div class="iphone-status">
-              <span>9:41</span>
-              <span>📶</span>
-            </div>
-            <div class="iphone-content">
-              <div class="card">
-                <div class="card-header">➜ Transfert en cours</div>
-                <div class="card-amount">250€</div>
-                <div class="card-recipient">Jean Dupont</div>
-                <div class="progress-bar">
-                  <div class="progress-fill"></div>
+          <div class="iphone-frame">
+            <div class="iphone-screen">
+              <div class="status-bar">
+                <div class="status-left">
+                  <span>9:41</span>
                 </div>
-                <div class="card-status">✓ Effectué!</div>
+                <div class="status-right">
+                  <span>📶 📡 🔋</span>
+                </div>
+              </div>
+              
+              <div class="screen-content">
+                <div class="card-container">
+                  <div class="card">
+                    <div class="card-icon">💙</div>
+                    <div class="card-status">
+                      <span>⟳ EN COURS</span>
+                    </div>
+                    <div class="card-amount"><span class="card-currency">€</span> 250</div>
+                    <div class="card-recipient">Pour Jean Dupont</div>
+                    
+                    <div class="progress-container">
+                      <div class="progress-label">TRAITEMENT</div>
+                      <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                      </div>
+                    </div>
+                    
+                    <div class="card-bottom">
+                      <div class="checkmark">✓</div>
+                      <span>EFFECTUÉ</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -210,20 +310,5 @@
     </div>
   </footer>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const allLinks = document.querySelectorAll('a[href]');
-      allLinks.forEach(link => {
-        if (link.href && !link.href.startsWith('javascript:') && !link.href.startsWith('mailto:') && !link.href.startsWith('tel:')) {
-          link.addEventListener('click', function(e) {
-            if (this.href && this.getAttribute('target') !== '_blank') {
-              e.preventDefault();
-              setTimeout(() => { window.location.href = this.href; }, 300);
-            }
-          });
-        }
-      });
-    });
-  </script>
 </body>
 </html>
