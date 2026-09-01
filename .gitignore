@@ -1,0 +1,15 @@
+.env
+.env.local
+.env.*.local
+/node_modules
+/vendor
+/storage
+/bootstrap/cache
+.DS_Store
+Thumbs.db
+*.log
+.vscode
+.idea
+package-lock.json
+composer.lock
+.git

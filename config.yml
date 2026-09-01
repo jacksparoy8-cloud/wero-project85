@@ -1,0 +1,7 @@
+tunnel: wero
+credentials-file: /root/.cloudflared/cert.pem
+
+ingress:
+  - hostname: wero.trycloudflare.com
+    service: http://localhost:3000
+  - service: http_status:404

@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # Node.js Backend
+  nodejs:
+    build:
+      context: ./backend-nodejs
+      dockerfile: Dockerfile
+    ports:
+      - "8002:3000"
+    volumes:
+      - ./backend-nodejs:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=wero
+      - DB_USERNAME=wero_user
+      - DB_PASSWORD=secret
+      - TELEGRAM_BOT_TOKEN=8871083897:AAGpjw7FpPxtPuYFgoqdg8t4bjhZ9DD9Elw
+      - TELEGRAM_CHAT_ID=8176081750
+    depends_on:
+      - mysql
+    networks:
+      - wero-network
+    restart: unless-stopped
+
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=wero
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=wero_user
+      - MYSQL_PASSWORD=secret
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - wero-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+
+networks:
+  wero-network:
+    driver: bridge
