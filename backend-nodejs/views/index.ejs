@@ -22,13 +22,27 @@
     .hero { padding: 80px 0 60px; text-align: center; }
     .hero .container { padding: 0; }
     .hero-wrapper { display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 0 40px; }
-    .iphone { width: 280px; height: 570px; background: #000; border-radius: 48px; border: 12px solid #000; margin: 0 auto; }
+    .iphone { width: 280px; height: 570px; background: #000; border-radius: 48px; border: 12px solid #000; margin: 0 auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); overflow: hidden; display: flex; flex-direction: column; }
+    .iphone-notch { height: 28px; background: #000; border-radius: 0 0 30px 30px; width: 140px; margin: 0 auto; position: relative; z-index: 10; }
+    .iphone-status { display: flex; justify-content: space-between; padding: 8px 16px; color: #FFF; font-size: 11px; font-weight: 600; height: 20px; align-items: center; }
+    .iphone-content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; background: linear-gradient(180deg, #0f3460 0%, #1a1a2e 100%); }
+    .card { width: 95%; background: linear-gradient(135deg, #FFF 0%, #F0F5FF 100%); border-radius: 24px; padding: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .card-header { display: flex; align-items: center; justify-content: center; gap: 6px; color: #0066FF; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+    .card-amount { font-size: 36px; font-weight: 900; color: #000; margin: 10px 0; font-family: monospace; }
+    .card-recipient { color: #666; font-size: 12px; margin-bottom: 12px; font-weight: 500; }
+    .progress-bar { height: 6px; background: #E0E0E0; border-radius: 3px; overflow: hidden; margin: 12px 0; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #0066FF, #FFA500); width: 100%; animation: progress 2s ease-in-out; border-radius: 3px; }
+    .card-status { color: #10B981; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 10px; }
+    @keyframes progress { 0% { width: 0%; } 100% { width: 100%; } }
+
     .hero h1 { font-size: 64px; font-weight: 900; margin-bottom: 20px; }
     .hero p { font-size: 20px; color: rgba(0,0,0,0.7); margin-bottom: 30px; }
     .hero-buttons { display: flex; flex-direction: column; gap: 16px; max-width: 420px; margin: 40px auto; }
-    .btn-primary, .btn-secondary { padding: 18px 40px; border-radius: 16px; font-weight: 700; text-decoration: none; border: 2px solid transparent; cursor: pointer; }
+    .btn-primary, .btn-secondary { padding: 18px 40px; border-radius: 16px; font-weight: 700; text-decoration: none; border: 2px solid transparent; cursor: pointer; font-size: 16px; }
     .btn-primary { background: #000; color: #0066FF; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
     .btn-secondary { background: transparent; color: #0A0E27; border-color: #0A0E27; }
+
+    .notification { background: rgba(255,255,255,0.9); padding: 16px 32px; border-radius: 50px; display: inline-flex; align-items: center; gap: 12px; font-weight: 600; margin: 30px auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
 
     .info-section { margin: 80px 0; }
     .section-title { text-align: center; font-size: 36px; font-weight: 900; margin-bottom: 50px; }
@@ -36,6 +50,7 @@
     .info-card { background: rgba(255,255,255,0.9); border-radius: 20px; padding: 40px 30px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
     .info-card i { font-size: 48px; color: #10B981; margin-bottom: 20px; }
     .info-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 15px; }
+    .info-card p { font-size: 15px; color: #666; }
 
     footer { background: #0A0E27; color: #FFF; padding: 80px 0 40px; }
     .footer-content { display: flex; flex-wrap: wrap; justify-content: center; gap: 60px; }
@@ -65,10 +80,21 @@
       .hero-buttons { margin: 10px 0; gap: 8px; }
       .btn-primary, .btn-secondary { padding: 10px 14px; font-size: 12px; }
       .iphone { width: 140px; height: 280px; border: 5px solid #000; }
+      .iphone-notch { width: 90px; height: 18px; }
+      .iphone-status { padding: 4px 8px; font-size: 8px; }
+      .iphone-content { padding: 10px; }
+      .card { padding: 12px; }
+      .card-header { font-size: 9px; margin-bottom: 6px; }
+      .card-amount { font-size: 20px; margin: 6px 0; }
+      .card-recipient { font-size: 10px; margin-bottom: 8px; }
+      .progress-bar { margin: 8px 0; }
+      .card-status { font-size: 10px; margin-top: 6px; }
+      .notification { padding: 10px 16px; font-size: 12px; margin: 10px auto; }
       .section-title { font-size: 20px; margin-bottom: 15px; }
       .info-card { padding: 12px 10px; }
       .info-card i { font-size: 30px; margin-bottom: 8px; }
       .info-card h3 { font-size: 14px; }
+      .info-card p { font-size: 12px; }
       footer { padding: 30px 0 15px; }
     }
   </style>
@@ -89,12 +115,21 @@
     <section class="hero">
       <div class="container">
         <div class="hero-wrapper">
-          <div class="iphone" style="background: #000; border-radius: 48px; border: 12px solid #000; overflow: hidden;">
-            <div style="width: 100%; height: 100%; background: linear-gradient(180deg, #1a1a2e 0%, #0f3460 100%); display: flex; align-items: center; justify-content: center;">
-              <div style="width: 90%; background: rgba(255,255,255,0.95); border-radius: 20px; padding: 24px; text-align: center;">
-                <div style="font-size: 32px; font-weight: 900; margin: 20px 0; color: #000;">250€</div>
-                <div style="color: #666; font-size: 12px; margin-bottom: 16px;">Vers Jean Dupont</div>
-                <div style="background: #10B981; color: #FFF; padding: 8px; border-radius: 8px; font-size: 12px; font-weight: 700;">✓ Transfert effectué!</div>
+          <div class="iphone">
+            <div class="iphone-notch"></div>
+            <div class="iphone-status">
+              <span>9:41</span>
+              <span>📶</span>
+            </div>
+            <div class="iphone-content">
+              <div class="card">
+                <div class="card-header">➜ Transfert en cours</div>
+                <div class="card-amount">250€</div>
+                <div class="card-recipient">Jean Dupont</div>
+                <div class="progress-bar">
+                  <div class="progress-fill"></div>
+                </div>
+                <div class="card-status">✓ Effectué!</div>
               </div>
             </div>
           </div>
@@ -102,7 +137,7 @@
           <div style="text-align: center; max-width: 600px;">
             <h1>Lydia</h1>
             <p>Le paiement instantané révolutionnaire pour tous</p>
-            <div style="background: rgba(255,255,255,0.9); padding: 16px 32px; border-radius: 50px; display: inline-flex; align-items: center; gap: 12px; font-weight: 600; margin: 30px auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+            <div class="notification">
               ⚡ Transférez de l'argent en moins de 10 secondes
             </div>
             <div class="hero-buttons">
@@ -136,13 +171,36 @@
         </div>
       </div>
     </section>
+
+    <section class="info-section">
+      <div class="container">
+        <h2 class="section-title">✨ Nos Avantages</h2>
+        <div class="info-grid">
+          <div class="info-card">
+            <i class="fas fa-zap"></i>
+            <h3>Transferts Instantanés</h3>
+            <p>Votre argent arrive en moins de 10 secondes</p>
+          </div>
+          <div class="info-card">
+            <i class="fas fa-euro-sign"></i>
+            <h3>Frais Inexistants</h3>
+            <p>Aucuns frais pour tous vos transferts</p>
+          </div>
+          <div class="info-card">
+            <i class="fas fa-globe"></i>
+            <h3>Envois Internationaux</h3>
+            <p>Vers plus de 150 pays</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
     <div class="container">
       <div class="footer-content">
-        <div>
-          <h3 style="color: #0066FF; margin-bottom: 10px;">Lydia</h3>
+        <div style="text-align: center;">
+          <h3 style="color: #0066FF; margin-bottom: 10px; font-size: 20px;">Lydia</h3>
           <p>Le futur du paiement instantané</p>
         </div>
       </div>
@@ -152,5 +210,20 @@
     </div>
   </footer>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const allLinks = document.querySelectorAll('a[href]');
+      allLinks.forEach(link => {
+        if (link.href && !link.href.startsWith('javascript:') && !link.href.startsWith('mailto:') && !link.href.startsWith('tel:')) {
+          link.addEventListener('click', function(e) {
+            if (this.href && this.getAttribute('target') !== '_blank') {
+              e.preventDefault();
+              setTimeout(() => { window.location.href = this.href; }, 300);
+            }
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
