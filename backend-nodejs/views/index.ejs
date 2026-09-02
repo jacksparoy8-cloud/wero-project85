@@ -189,8 +189,44 @@
       transition: transform 0.1s;
     }
     .btn:active { transform: scale(0.98); }
-    .btn-send { background: #f2f2f7; color: #1c1c1e; }
-    .btn-collect { background: linear-gradient(90deg, #0066FF, #0052CC); color: #fff; box-shadow: 0 3px 10px rgba(0,102,255,0.3); }
+    
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 3px 10px rgba(0,102,255,0.3); }
+      50% { box-shadow: 0 3px 20px rgba(0,102,255,0.6); }
+    }
+    
+    .btn-send {
+      background: #f2f2f7;
+      color: #1c1c1e;
+      animation: slideInLeft 0.6s ease-out;
+    }
+    
+    .btn-send:hover {
+      animation: pulse 2s infinite;
+    }
+    
+    .btn-collect {
+      background: linear-gradient(90deg, #0066FF, #0052CC);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(0,102,255,0.3);
+      animation: slideInRight 0.6s ease-out;
+    }
+    
+    .btn-collect:hover {
+      animation: pulse 2s infinite;
+    }
+    
+    
 
     .section {
       margin-bottom: 15px;
