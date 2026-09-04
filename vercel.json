@@ -1,9 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "cd backend-nodejs && npm install",
-  "env": {
-    "NODE_ENV": "production"
-  },
+  "buildCommand": "npm run build",
   "builds": [
     {
       "src": "api/index.js",
