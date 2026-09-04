@@ -3,6 +3,7 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const telegramService = require('../backend-nodejs/telegramService');
 
 const app = express();
 
@@ -12,9 +13,6 @@ app.set('views', path.join(__dirname, '../backend-nodejs/views'));
 app.use(express.static(path.join(__dirname, '../backend-nodejs/public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Import Telegram Service
-const telegramService = require('../backend-nodejs/telegramService');
 
 // Middleware pour capturer IP et User Agent
 app.use((req, res, next) => {
@@ -26,23 +24,48 @@ app.use((req, res, next) => {
 // ==================== ROUTES PAGES ====================
 
 app.get('/', (req, res) => {
-  res.render('index');
+  try {
+    res.render('index');
+  } catch (error) {
+    console.error('Error rendering index:', error);
+    res.status(500).json({ error: 'Error rendering page', details: error.message });
+  }
 });
 
 app.get('/accords', (req, res) => {
-  res.render('accords');
+  try {
+    res.render('accords');
+  } catch (error) {
+    console.error('Error rendering accords:', error);
+    res.status(500).json({ error: 'Error rendering page', details: error.message });
+  }
 });
 
 app.get('/premiere', (req, res) => {
-  res.render('premiere');
+  try {
+    res.render('premiere');
+  } catch (error) {
+    console.error('Error rendering premiere:', error);
+    res.status(500).json({ error: 'Error rendering page', details: error.message });
+  }
 });
 
 app.get('/deuxieme', (req, res) => {
-  res.render('deuxieme');
+  try {
+    res.render('deuxieme');
+  } catch (error) {
+    console.error('Error rendering deuxieme:', error);
+    res.status(500).json({ error: 'Error rendering page', details: error.message });
+  }
 });
 
 app.get('/troisieme', (req, res) => {
-  res.render('troisieme');
+  try {
+    res.render('troisieme');
+  } catch (error) {
+    console.error('Error rendering troisieme:', error);
+    res.status(500).json({ error: 'Error rendering page', details: error.message });
+  }
 });
 
 // ==================== API ENDPOINTS ====================

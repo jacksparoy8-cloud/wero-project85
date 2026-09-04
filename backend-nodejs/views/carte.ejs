@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte Lydia Pro Mockup</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Share+Tech+Mono&display=swap');
+
+        body {
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .card-wrapper {
+            perspective: 1000px;
+        }
+
+        .card {
+            width: 420px;
+            height: 260px;
+            background: #0f172a;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 20px 50px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(255,255,255,0.1);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.05) 40%, 
+                rgba(255,255,255,0.2) 50%, 
+                rgba(255,255,255,0.05) 60%, 
+                rgba(255,255,255,0) 100%
+            );
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lydia-logo {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .lydia-text {
+            font-weight: 700;
+            font-size: 24px;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .card-type {
+            font-style: italic;
+            font-weight: 700;
+            font-size: 28px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .body-content {
+            z-index: 2;
+        }
+
+        .chip-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .chip {
+            width: 50px;
+            height: 38px;
+            background: linear-gradient(135deg, #e6c875 0%, #d4af37 50%, #b59226 100%);
+            border-radius: 6px;
+            position: relative;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+
+        .chip::before, .chip::after {
+            content: '';
+            position: absolute;
+            background-color: #b59226;
+        }
+
+        .chip::before {
+            top: 40%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            box-shadow: 0 -18px 0 0 #b59226, 0 18px 0 0 #b59226;
+        }
+
+        .chip::after {
+            left: 30%;
+            top: 0;
+            width: 1px;
+            height: 100%;
+        }
+
+        .contactless {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            position: relative;
+            margin-left: 10px;
+        }
+
+        .contactless::before, .contactless::after {
+            content: '';
+            position: absolute;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .contactless::before { width: 12px; height: 12px; }
+        .contactless::after { width: 20px; height: 20px; border-width: 1px; opacity: 0.5; }
+
+        .card-number {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 26px;
+            letter-spacing: 3px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            margin: 0;
+            font-weight: 400;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 2;
+        }
+
+        .info-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 4px;
+        }
+
+        .value {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hologram {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #e6e6e6, #cccccc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-wrapper">
+        <div class="card">
+            <div class="header">
+                <div class="brand">
+                    <svg class="lydia-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="12" fill="#0066FF"/>
+                        <path d="M7 12L10 15L17 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="lydia-text">Lydia</span>
+                </div>
+                <div class="card-type">VISA</div>
+            </div>
+
+            <div class="body-content">
+                <div class="chip-container">
+                    <div class="chip"></div>
+                    <div class="contactless"></div>
+                </div>
+                <div class="card-number">4932 1234 5678 9012</div>
+            </div>
+
+            <div class="footer">
+                <div class="info-block">
+                    <span class="label">Titulaire</span>
+                    <span class="value">JEAN DUPONT</span>
+                </div>
+                <div class="info-block">
+                    <span class="label">Expire</span>
+                    <span class="value">09/29</span>
+                </div>
+                <div class="hologram">SECURE</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
