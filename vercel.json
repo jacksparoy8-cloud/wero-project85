@@ -1,11 +1,8 @@
 {
   "version": 2,
   "buildCommand": "cd backend-nodejs && npm install",
-  "framework": "express",
-  "public": "backend-nodejs/public",
   "env": {
-    "NODE_ENV": "production",
-    "PORT": "3000"
+    "NODE_ENV": "production"
   },
   "builds": [
     {
@@ -18,12 +15,5 @@
       "src": "/(.*)",
       "dest": "api/index.js"
     }
-  ],
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "nodejs18.x",
-      "memory": 1024,
-      "maxDuration": 60
-    }
-  }
+  ]
 }
